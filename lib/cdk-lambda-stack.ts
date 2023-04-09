@@ -1,8 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import { CfnOutput, Duration } from 'aws-cdk-lib';
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as nodejslambda from "aws-cdk-lib/aws-lambda-nodejs";
+import { Construct } from 'constructs';
 import path = require('path');
 
 export class CdkLambdaStack extends cdk.Stack {
@@ -14,7 +13,7 @@ export class CdkLambdaStack extends cdk.Stack {
             handler: "handler",
             description: "Test streaming lambda function",
             entry: path.join(__dirname, "lambda/stream.ts"),
-            timeout: Duration.seconds(20)
+            timeout: cdk.Duration.seconds(20)
         });
 
         const fnUrl = streamLambda.addFunctionUrl({ authType: lambda.FunctionUrlAuthType.NONE });
@@ -22,7 +21,7 @@ export class CdkLambdaStack extends cdk.Stack {
 
         cfnFnUrl.addOverride("Properties.InvokeMode", "RESPONSE_STREAM");
         
-        new CfnOutput(this, "fnUrl", {
+        new cdk.CfnOutput(this, "fnUrl", {
             value: fnUrl.url
         });
     }
