@@ -1,14 +1,4 @@
-# Welcome to your CDK TypeScript project
+# Response streaming Lambda function with CDK
+Recently AWS announced [payload response streaming](https://docs.aws.amazon.com/lambda/latest/dg/configuration-response-streaming.html) for Lambda functions. This allows you to overcome the 6MB payload size limit and reduce TTFB among other things. 
 
-This is a blank project for CDK development with TypeScript.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+This repository provides a basic example of how to get this set up with the CDK. Since there is currently, to my knowledge, no typing for the `awslambda` object, this needs to be declared explicitly. Also, neither the NodejsFunction construct nor the FunctionUrl object currently support changing the InvokeMode (whether to buffer the payload or stream it) so this is done by overriding the underlying CloudFormation.
