@@ -1,4 +1,4 @@
-import { Context, Handler, S3Event } from "aws-lambda";
+import { Context, Handler } from "aws-lambda";
 import { Writable } from "stream";
 
 declare const awslambda: {
